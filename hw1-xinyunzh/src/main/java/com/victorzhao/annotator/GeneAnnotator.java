@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 // import java.util.Map;
-import java.util.Set;
+// import java.util.Set;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
@@ -19,50 +19,47 @@ import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import com.aliasi.chunk.Chunk;
-import com.aliasi.chunk.Chunker;
-import com.aliasi.chunk.Chunking;
-// import com.aliasi.chunk.ConfidenceChunker;
+// import com.aliasi.chunk.Chunker;
+// import com.aliasi.chunk.Chunking;
+import com.aliasi.chunk.ConfidenceChunker;
 import com.aliasi.util.AbstractExternalizable;
 import com.victorzhao.type.*;
 
-/**
+/** GeneAnnotator is used to add gene features to words from one sentence.
+ * 
  * @author victorzhao
  *
  */
 
 public class GeneAnnotator extends JCasAnnotator_ImplBase {
 
-	private Chunker chunker; 
+//	private Chunker chunker; 
 //  private PosTagNamedEntityRecognizer posTagReco;
+
 //	nBestChunk implementation
-//	private ConfidenceChunker chunker;
+	/** The ConfidenceChunker instance */
+	private ConfidenceChunker chunker;
+	
+	/** The number of maximum words within a gene name */
+	private static final int MAX_N_BEST_CHUNKS = 8;
 	
 //	public GeneAnnotator() throws ResourceInitializationException {
 //		posTagReco = new PosTagNamedEntityRecognizer();
 //	}
 	
 	@Override
-	/** This method will initialize one instance for private variable chunker
+	/**
+	 * This method will initialize one instance for private variable chunker
 	 * , which is one of the components of Lingpipe. It also loads the Genetag Model into
 	 * the annotator.
 	 * 
 	 * @param aContext
+	 * 
 	 */
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 //		First-Best Named Entity Chunking
-		try {
-			chunker = (Chunker) AbstractExternalizable.
-					readObject(new File("src/main/resources/ne-en-bio-genetag.HmmChunker"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//		nBestChunk implementation
 //		try {
-//			chunker = (ConfidenceChunker) AbstractExternalizable.
+//			chunker = (Chunker) AbstractExternalizable.
 //					readObject(new File("src/main/resources/ne-en-bio-genetag.HmmChunker"));
 //		} catch (IOException e) {
 //			// TODO Auto-generated catch block
@@ -71,11 +68,24 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
+
+		//		nBestChunk implementation
+		try {
+			chunker = (ConfidenceChunker) AbstractExternalizable.
+					readObject(new File("src/main/resources/ne-en-bio-genetag.HmmChunker"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 		
 	@Override
-	/** process(JCas aJCas) will call annoGene(JCas aJCas, String text) to process JCAS with 
+	/** 
+	 * process(JCas aJCas) will call annoGene(JCas aJCas, String text) to process JCAS with 
 	 * annotation of noun/phrase, adding gene annotation to them.
 	 * 
 	 * @param aJCas 
@@ -83,11 +93,11 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 	 */
 	public void process(JCas aJCas) throws AnalysisEngineProcessException {
 		AnnotationIndex<Annotation> sentenceIndex = aJCas
-				.getAnnotationIndex(PreGene.type);
+				.getAnnotationIndex(SentenceType.type);
 		FSIterator<Annotation> PreGeneIterator = sentenceIndex.iterator();
 		while (PreGeneIterator.hasNext()) {
-			PreGene st = (PreGene) PreGeneIterator.get();
-			List<GeneType> geneList = annoGene(aJCas, st.getSpelling());
+			SentenceType st = (SentenceType) PreGeneIterator.get();
+			List<GeneType> geneList = annoGene(aJCas, st.getContent());
 			for (GeneType gene : geneList) {
 				gene.setId(st.getId());
 				gene.addToIndexes();
@@ -98,7 +108,8 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 		
 	}
 	
-	/** annoGene(JCas aJCas, String text) will call an instance of Chunker 
+	/** 
+	 * annoGene(JCas aJCas, String text) will call an instance of Chunker 
 	 * to process sentences, and add annotation of gene. This method will return an object of List type.  
 	 * 
 	 * @param aJCas
@@ -109,43 +120,67 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 	 */
 	private List<GeneType> annoGene(JCas aJCas, String text) {
 		List<GeneType> geneList = new LinkedList<GeneType>();
-		HashSet<String> hsString = new HashSet<String>();
+//		HashSet<String> hsString = new HashSet<String>();
 		
 //		First-Best Named Entity Chunking
-		Chunking chunking = chunker.chunk(text);
-		Set<Chunk> chSet = chunking.chunkSet();
-		Iterator<Chunk> itChSet = chSet.iterator();
-		// String cs = text.toString();
-		while (itChSet.hasNext()) {
+//		Chunking chunking = chunker.chunk(text);
+//		Set<Chunk> chSet = chunking.chunkSet();
+//		Iterator<Chunk> itChSet = chSet.iterator();
+//		while (itChSet.hasNext()) {
+//			GeneType gt = new GeneType(aJCas);
+//			Chunk chunk = itChSet.next();
+//			String name = text.substring(chunk.start(), chunk.end());
+//			if (!hsString.contains(name)) {
+//				hsString.add(name);
+//				gt.setBegin(chunk.start());
+//				gt.setEnd(chunk.end());
+//				gt.setSpelling(name);
+//				geneList.add(gt);
+//			}
+//			gt.setBegin(chunk.start());
+//			gt.setEnd(chunk.end());
+//			gt.setSpelling(text.substring(chunk.start(), chunk.end()));
+//			geneList.add(gt);
+// 		nBestChunk implementation
+		char[] cs = text.toCharArray();
+		Iterator<Chunk> it = chunker.nBestChunks(cs, 0 , cs.length, 10);
+		
+		while (it.hasNext()){
 			GeneType gt = new GeneType(aJCas);
-			Chunk chunk = itChSet.next();
-			String name = text.substring(chunk.start(), chunk.end());
-			if (!hsString.contains(name)) {
-				hsString.add(name);
-				gt.setBegin(chunk.start());
-				gt.setEnd(chunk.end());
-				gt.setSpelling(name);
+			Chunk chunk = it.next();
+			double conf = Math.pow(2.0, chunk.score());
+			if (conf >= 0.8) {
+				int start = chunk.start();
+				int end = chunk.end();
+				gt.setBegin(start);
+				gt.setEnd(end);
+				gt.setBeginWithoutSpace(removeSpace(text, start));
+				gt.setEndWithoutSpace(removeSpace(text, end));
+				gt.setSpelling(text.substring(start, end));
 				geneList.add(gt);
 			}
-//			gt.setBegin(chunk.start());
-//			gt.setEnd(chunk.end());
-//			gt.setSpelling(text.substring(chunk.start(), chunk.end()));
-//			geneList.add(gt);
 		}
-// 		nBestChunk implementation
-//		Iterator<Chunk> it
-//	      = chunker.nBestChunks(cs, 0 , cs.length, 2);
-//		char[] cs = text.toCharArray();
-//		while (it.hasNext()){
-//			GeneType gt = new GeneType(aJCas);
-//			Chunk chunk = it.next();
-//			double conf = Math.pow(2.0, chunk.score());
-//			gt.setBegin(chunk.start());
-//			gt.setEnd(chunk.end());
-//			gt.setSpelling(text.substring(chunk.start(), chunk.end()));
-//			geneList.add(gt);
-//		}
 		return geneList;
+	}
+	
+	/** 
+	 * This method will deduct a number of spaces ahead from the given index,
+	 * 
+	 * @param text
+	 * 			The text is the content of line. 
+	 * @param pos
+	 * 			The pos is either index of begin or index of end for a gene word.
+	 * @return
+	 */
+	private int removeSpace(String text, int pos) {
+		int posWithoutSpace = 0, index = 0;
+		while (index < pos) {
+			if (text.charAt(index) != ' ') {
+				posWithoutSpace++;
+			}
+			index++;
+		}
+		return posWithoutSpace;
 	}
 	
 	/* Abandoned process method

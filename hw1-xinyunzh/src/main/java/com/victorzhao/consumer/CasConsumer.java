@@ -54,7 +54,7 @@ public class CasConsumer extends CasConsumer_ImplBase {
 			BufferedWriter output = new BufferedWriter(out);
 			while (geneIt.hasNext()) {
 				GeneType gene = (GeneType) geneIt.next();
-				output.write(gene.getId() + "|" + gene.getBegin() + " " + gene.getEnd() + "|" + gene.getSpelling() + "\n");
+				output.write(gene.getId() + "|" + gene.getBeginWithoutSpace() + " " + gene.getEndWithoutSpace() + "|" + gene.getSpelling() + "\n");
 			}
 			output.close();
 			// System.out.println("*************");

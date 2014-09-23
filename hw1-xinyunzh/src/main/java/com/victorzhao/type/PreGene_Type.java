@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** The preprocessed gene type.
- * Updated by JCasGen Mon Sep 22 13:40:29 EDT 2014
+ * Updated by JCasGen Tue Sep 23 01:49:04 EDT 2014
  * @generated */
 public class PreGene_Type extends Annotation_Type {
   /** @generated 

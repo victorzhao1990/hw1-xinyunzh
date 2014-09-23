@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Mon Sep 22 13:40:29 EDT 2014
- * XML source: /Users/victorzhao/Documents/Workspace/11791/hw1-xinyunzh/src/main/resources/typeSystemDescriptor.xml
+ * Updated by JCasGen Tue Sep 23 01:49:04 EDT 2014
+ * XML source: /Users/victorzhao/git/hw1-xinyunzh/hw1-xinyunzh/src/main/resources/desc/typeSystemDescriptor.xml
  * @generated */
 public class GeneType extends Annotation {
   /** @generated
@@ -118,6 +118,50 @@ public class GeneType extends Annotation {
     if (GeneType_Type.featOkTst && ((GeneType_Type)jcasType).casFeat_Spelling == null)
       jcasType.jcas.throwFeatMissing("Spelling", "com.victorzhao.type.GeneType");
     jcasType.ll_cas.ll_setStringValue(addr, ((GeneType_Type)jcasType).casFeatCode_Spelling, v);}    
+   
+    
+  //*--------------*
+  //* Feature: BeginWithoutSpace
+
+  /** getter for BeginWithoutSpace - gets The begin offset without spaces counted in.
+   * @generated
+   * @return value of the feature 
+   */
+  public int getBeginWithoutSpace() {
+    if (GeneType_Type.featOkTst && ((GeneType_Type)jcasType).casFeat_BeginWithoutSpace == null)
+      jcasType.jcas.throwFeatMissing("BeginWithoutSpace", "com.victorzhao.type.GeneType");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((GeneType_Type)jcasType).casFeatCode_BeginWithoutSpace);}
+    
+  /** setter for BeginWithoutSpace - sets The begin offset without spaces counted in. 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setBeginWithoutSpace(int v) {
+    if (GeneType_Type.featOkTst && ((GeneType_Type)jcasType).casFeat_BeginWithoutSpace == null)
+      jcasType.jcas.throwFeatMissing("BeginWithoutSpace", "com.victorzhao.type.GeneType");
+    jcasType.ll_cas.ll_setIntValue(addr, ((GeneType_Type)jcasType).casFeatCode_BeginWithoutSpace, v);}    
+   
+    
+  //*--------------*
+  //* Feature: EndWithoutSpace
+
+  /** getter for EndWithoutSpace - gets The end offset without spaces counted in.
+   * @generated
+   * @return value of the feature 
+   */
+  public int getEndWithoutSpace() {
+    if (GeneType_Type.featOkTst && ((GeneType_Type)jcasType).casFeat_EndWithoutSpace == null)
+      jcasType.jcas.throwFeatMissing("EndWithoutSpace", "com.victorzhao.type.GeneType");
+    return jcasType.ll_cas.ll_getIntValue(addr, ((GeneType_Type)jcasType).casFeatCode_EndWithoutSpace);}
+    
+  /** setter for EndWithoutSpace - sets The end offset without spaces counted in. 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setEndWithoutSpace(int v) {
+    if (GeneType_Type.featOkTst && ((GeneType_Type)jcasType).casFeat_EndWithoutSpace == null)
+      jcasType.jcas.throwFeatMissing("EndWithoutSpace", "com.victorzhao.type.GeneType");
+    jcasType.ll_cas.ll_setIntValue(addr, ((GeneType_Type)jcasType).casFeatCode_EndWithoutSpace, v);}    
   }
 
     

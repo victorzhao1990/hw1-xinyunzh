@@ -59,7 +59,6 @@ public class PreGeneAnnotator extends JCasAnnotator_ImplBase {
 		AnnotationIndex<Annotation> sentenceIndex = aJCas
 				.getAnnotationIndex(SentenceType.type);
 		FSIterator<Annotation> sentenceIterator = sentenceIndex.iterator();
-
 		while (sentenceIterator.hasNext()) {
 			SentenceType st = (SentenceType) sentenceIterator.get();
 			List<PreGene> geneList = annoPreGene(aJCas, st.getContent());

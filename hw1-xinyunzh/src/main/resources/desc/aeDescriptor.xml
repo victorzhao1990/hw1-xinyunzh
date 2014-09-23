@@ -9,9 +9,6 @@
     <delegateAnalysisEngine key="aeDescSent">
       <import location="aeDescSent.xml"/>
     </delegateAnalysisEngine>
-  <delegateAnalysisEngine key="aeDescPreGene">
-      <import location="aeDescPreGene.xml"/>
-    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>aeDescriptor</name>
@@ -23,8 +20,7 @@
     <flowConstraints>
       <fixedFlow>
         <node>aeDescSent</node>
-        <node>aeDescPreGene</node>
-      <node>aeDescGene</node>
+        <node>aeDescGene</node>
       </fixedFlow>
     </flowConstraints>
     <fsIndexCollection/>

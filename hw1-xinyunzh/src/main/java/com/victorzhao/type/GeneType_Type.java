@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** 
- * Updated by JCasGen Mon Sep 22 13:40:29 EDT 2014
+ * Updated by JCasGen Tue Sep 23 01:49:04 EDT 2014
  * @generated */
 public class GeneType_Type extends Annotation_Type {
   /** @generated 
@@ -93,6 +93,54 @@ public class GeneType_Type extends Annotation_Type {
     ll_cas.ll_setStringValue(addr, casFeatCode_Spelling, v);}
     
   
+ 
+  /** @generated */
+  final Feature casFeat_BeginWithoutSpace;
+  /** @generated */
+  final int     casFeatCode_BeginWithoutSpace;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public int getBeginWithoutSpace(int addr) {
+        if (featOkTst && casFeat_BeginWithoutSpace == null)
+      jcas.throwFeatMissing("BeginWithoutSpace", "com.victorzhao.type.GeneType");
+    return ll_cas.ll_getIntValue(addr, casFeatCode_BeginWithoutSpace);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setBeginWithoutSpace(int addr, int v) {
+        if (featOkTst && casFeat_BeginWithoutSpace == null)
+      jcas.throwFeatMissing("BeginWithoutSpace", "com.victorzhao.type.GeneType");
+    ll_cas.ll_setIntValue(addr, casFeatCode_BeginWithoutSpace, v);}
+    
+  
+ 
+  /** @generated */
+  final Feature casFeat_EndWithoutSpace;
+  /** @generated */
+  final int     casFeatCode_EndWithoutSpace;
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @return the feature value 
+   */ 
+  public int getEndWithoutSpace(int addr) {
+        if (featOkTst && casFeat_EndWithoutSpace == null)
+      jcas.throwFeatMissing("EndWithoutSpace", "com.victorzhao.type.GeneType");
+    return ll_cas.ll_getIntValue(addr, casFeatCode_EndWithoutSpace);
+  }
+  /** @generated
+   * @param addr low level Feature Structure reference
+   * @param v value to set 
+   */    
+  public void setEndWithoutSpace(int addr, int v) {
+        if (featOkTst && casFeat_EndWithoutSpace == null)
+      jcas.throwFeatMissing("EndWithoutSpace", "com.victorzhao.type.GeneType");
+    ll_cas.ll_setIntValue(addr, casFeatCode_EndWithoutSpace, v);}
+    
+  
 
 
 
@@ -112,6 +160,14 @@ public class GeneType_Type extends Annotation_Type {
  
     casFeat_Spelling = jcas.getRequiredFeatureDE(casType, "Spelling", "uima.cas.String", featOkTst);
     casFeatCode_Spelling  = (null == casFeat_Spelling) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_Spelling).getCode();
+
+ 
+    casFeat_BeginWithoutSpace = jcas.getRequiredFeatureDE(casType, "BeginWithoutSpace", "uima.cas.Integer", featOkTst);
+    casFeatCode_BeginWithoutSpace  = (null == casFeat_BeginWithoutSpace) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_BeginWithoutSpace).getCode();
+
+ 
+    casFeat_EndWithoutSpace = jcas.getRequiredFeatureDE(casType, "EndWithoutSpace", "uima.cas.Integer", featOkTst);
+    casFeatCode_EndWithoutSpace  = (null == casFeat_EndWithoutSpace) ? JCas.INVALID_FEATURE_CODE : ((FeatureImpl)casFeat_EndWithoutSpace).getCode();
 
   }
 }

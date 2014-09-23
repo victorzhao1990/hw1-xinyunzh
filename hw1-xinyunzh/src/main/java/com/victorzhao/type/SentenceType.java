@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** 
- * Updated by JCasGen Mon Sep 22 13:40:29 EDT 2014
- * XML source: /Users/victorzhao/Documents/Workspace/11791/hw1-xinyunzh/src/main/resources/typeSystemDescriptor.xml
+ * Updated by JCasGen Tue Sep 23 01:49:04 EDT 2014
+ * XML source: /Users/victorzhao/git/hw1-xinyunzh/hw1-xinyunzh/src/main/resources/desc/typeSystemDescriptor.xml
  * @generated */
 public class SentenceType extends Annotation {
   /** @generated
