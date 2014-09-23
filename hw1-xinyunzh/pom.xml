@@ -110,4 +110,8 @@
     	<version>4.1.0</version>
     </dependency>
   </dependencies>
+  <scm>
+  	<connection>scm:git:git://github.com:victorzhao1990/hw1-xinyunzh.git</connection>
+  	<developerConnection>scm:git:git://github.com:victorzhao1990/hw1-xinyunzh.git</developerConnection>
+  </scm>
 </project>
