@@ -1,4 +1,4 @@
-package com.victorzhao.annotator;
+package com.victorzhao.archive;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,7 +16,6 @@ import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 
 import com.victorzhao.nlp.*;
-import com.victorzhao.type.PreGene;
 import com.victorzhao.type.SentenceType;
 
 /** PreGeneAnnotator is used to add nouns features to words with one sentence.

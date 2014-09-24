@@ -31,6 +31,8 @@ public class CasConsumer extends CasConsumer_ImplBase {
 	private static final String PARAM_SAMPLEOUTPATH = "SampleOutFile";
 	private HashSet<String> hsSample;
 	private int countOfHit = 0;
+	private int testOutcomePositive = 0;
+	private int conditionPositive = 0;
 	
 
 	@Override
@@ -53,6 +55,7 @@ public class CasConsumer extends CasConsumer_ImplBase {
 			while ((line = br.readLine()) != null) {
 			   // System.out.println(line);
 				hsSample.add(line);
+				conditionPositive++;
 			}
 			br.close();
 		} catch (IOException e) {
@@ -77,6 +80,7 @@ public class CasConsumer extends CasConsumer_ImplBase {
 			out = new FileWriter(mOutputPath, true);
 			BufferedWriter output = new BufferedWriter(out);
 			while (geneIt.hasNext()) {
+				testOutcomePositive++;
 				GeneType gene = (GeneType) geneIt.next();
 				String linePrint = new String(gene.getId() + "|" + gene.getBeginWithoutSpace() + " " + gene.getEndWithoutSpace() + "|" + gene.getSpelling());
 				output.write(gene.getId() + "|" + gene.getBeginWithoutSpace() + " " + gene.getEndWithoutSpace() + "|" + gene.getSpelling() + "\n");
@@ -85,7 +89,12 @@ public class CasConsumer extends CasConsumer_ImplBase {
 				}
 			}
 			output.close();
-			System.out.println("Number of Hits is" + countOfHit);
+			System.out.println("Number of Hits is" + " " + countOfHit);
+			double precision = 1.0 * countOfHit / testOutcomePositive;
+			double recall = 1.0 * countOfHit / conditionPositive;
+			System.out.println("Precision is " + precision);
+			System.out.println("Recall is " + recall);
+			System.out.println("F-measure is " + 2 * precision * recall / (precision + recall));
 			// System.out.println("*************");
 		} catch (IOException e) {
 			throw new ResourceProcessException(e);

@@ -149,7 +149,7 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 			GeneType gt = new GeneType(aJCas);
 			Chunk chunk = it.next();
 			double conf = Math.pow(2.0, chunk.score());
-			if (conf >= 0.8) {
+			if (conf >= 0.5) {
 				int start = chunk.start();
 				int end = chunk.end();
 				gt.setBegin(start);

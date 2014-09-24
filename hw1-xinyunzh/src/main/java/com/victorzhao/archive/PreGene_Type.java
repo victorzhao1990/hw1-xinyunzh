@@ -1,6 +1,6 @@
 
 /* First created by JCasGen Mon Sep 22 13:40:29 EDT 2014 */
-package com.victorzhao.type;
+package com.victorzhao.archive;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
