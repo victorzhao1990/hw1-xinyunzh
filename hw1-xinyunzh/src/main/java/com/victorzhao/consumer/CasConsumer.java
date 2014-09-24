@@ -89,6 +89,7 @@ public class CasConsumer extends CasConsumer_ImplBase {
 				}
 			}
 			output.close();
+			// Evaluation Part
 			System.out.println("Number of Hits is" + " " + countOfHit);
 			double precision = 1.0 * countOfHit / testOutcomePositive;
 			double recall = 1.0 * countOfHit / conditionPositive;
