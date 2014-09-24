@@ -1,8 +1,12 @@
 package com.victorzhao.consumer;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashSet;
 
 import org.apache.uima.cas.CAS;
 import org.apache.uima.cas.CASException;
@@ -22,7 +26,12 @@ import com.victorzhao.type.*;
 
 public class CasConsumer extends CasConsumer_ImplBase {
 	private File mOutputPath;
+	private File sampleOut;
 	private static final String PARAM_OUTPUTPATH = "OutputFile";
+	private static final String PARAM_SAMPLEOUTPATH = "SampleOutFile";
+	private HashSet<String> hsSample;
+	private int countOfHit = 0;
+	
 
 	@Override
 	public void initialize() throws ResourceInitializationException {
@@ -34,6 +43,21 @@ public class CasConsumer extends CasConsumer_ImplBase {
 			} catch (IOException e) {
 				throw new ResourceInitializationException(e);
 			}
+		}
+		sampleOut = new File((String) getConfigParameterValue(PARAM_SAMPLEOUTPATH));
+		BufferedReader br;
+		hsSample = new HashSet<String>();
+		try {
+			br = new BufferedReader(new FileReader(sampleOut));
+			String line;
+			while ((line = br.readLine()) != null) {
+			   // System.out.println(line);
+				hsSample.add(line);
+			}
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -54,12 +78,19 @@ public class CasConsumer extends CasConsumer_ImplBase {
 			BufferedWriter output = new BufferedWriter(out);
 			while (geneIt.hasNext()) {
 				GeneType gene = (GeneType) geneIt.next();
+				String linePrint = new String(gene.getId() + "|" + gene.getBeginWithoutSpace() + " " + gene.getEndWithoutSpace() + "|" + gene.getSpelling());
 				output.write(gene.getId() + "|" + gene.getBeginWithoutSpace() + " " + gene.getEndWithoutSpace() + "|" + gene.getSpelling() + "\n");
+				if (hsSample.contains(linePrint.toString())) {
+					countOfHit++;
+				}
 			}
 			output.close();
+			System.out.println("Number of Hits is" + countOfHit);
 			// System.out.println("*************");
 		} catch (IOException e) {
 			throw new ResourceProcessException(e);
 		}
 	}
+	
+	
 }

@@ -46,6 +46,12 @@
                     <string>/Users/victorzhao/git/hw1-xinyunzh/hw1-xinyunzh/src/main/resources/data/hw1-xinyunzh.out</string>
                 </value>
             </nameValuePair>
+            <nameValuePair>
+                <name>SampleOutFile</name>
+                <value>
+                    <string>/Users/victorzhao/git/hw1-xinyunzh/hw1-xinyunzh/src/main/resources/data/sample.out</string>
+                </value>
+            </nameValuePair>
         </configurationParameterSettings>
     </casProcessor>
     </casProcessors>

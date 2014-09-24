@@ -155,7 +155,7 @@ public class GeneAnnotator extends JCasAnnotator_ImplBase {
 				gt.setBegin(start);
 				gt.setEnd(end);
 				gt.setBeginWithoutSpace(removeSpace(text, start));
-				gt.setEndWithoutSpace(removeSpace(text, end));
+				gt.setEndWithoutSpace(removeSpace(text, end) - 1);
 				gt.setSpelling(text.substring(start, end));
 				geneList.add(gt);
 			}
